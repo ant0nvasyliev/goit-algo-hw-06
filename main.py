@@ -26,13 +26,6 @@ class Phone(Field):
         else:
             raise ValueError("Invalid phone number")
 
-    def __eq__(self, other: object) -> bool:
-        if isinstance(other, Phone):
-            return self.value == other.value
-        else:
-            return False
-
-
 
 class Record:
     def __init__(self, contact_name) -> None:
