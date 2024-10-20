@@ -36,15 +36,19 @@ class Record:
         self.phones.append(Phone(phone_number))
 
     def remove_phone(self, phone_number):
-        if phone_number in self.phones:
-            self.phones.remove(phone_number)
-        else:
-            print(f"Phone number {phone_number} not found.")
+        for phone in self.phones:
+            if phone.value == phone_number:
+                self.phones.remove(phone)
+                return
+        print(f"Phone number {phone_number} not found.")
 
     def edit_phone(self, old_phone, new_phone):
         if self.find_phone(old_phone):
             self.remove_phone(old_phone)
-        self.add_phone(new_phone)
+            self.add_phone(new_phone)
+        else:
+            raise ValueError(f"Phone number {old_phone} not found")
+
 
     def find_phone(self, phone_number):
         for phone in self.phones:
@@ -78,31 +82,37 @@ class AddressBook(UserDict):
 book = AddressBook()
 
 # Створення запису для John
-john_record = Record("John")
-john_record.add_phone("1234567890")
-john_record.add_phone("5555555555")
+# john_record = Record("John")
+# john_record.add_phone("1234567890")
+# john_record.add_phone("5555555555")
+# book.add_record(john_record)
 
-# Додавання запису John до адресної книги
-book.add_record(john_record)
+anton_record = Record('Anton')
+anton_record.add_phone('1111111111')
+book.add_record(anton_record)
+print(book)
+anton_record.edit_phone('11111111111', '2222222222')
+print(book)
 
 # Створення та додавання нового запису для Jane
-jane_record = Record("Jane")
-jane_record.add_phone("9876543210")
-book.add_record(jane_record)
+# jane_record = Record("Jane")
+# jane_record.add_phone("9876543210")
+# book.add_record(jane_record)
 
 # Виведення всіх записів у книзі
 
-print(book)
+
 
 # Знаходження та редагування телефону для John
-john = book.find("John")
-john.edit_phone("1234567890", "1112223333")
+# john = book.find("John")
+# john.edit_phone("1234567890", "1112223333")
 
-print(john)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
+# print(john)  # Виведення: Contact name: John, phones: 1112223333; 5555555555
 
 # Пошук конкретного телефону у записі John
-found_phone = john.find_phone("5555555555")
-print(f"{john.name}: {found_phone}")  # Виведення: John: 5555555555
+# found_phone = john.find_phone("5555555555")
+# print(f"{john.name}: {found_phone}")  # Виведення: John: 5555555555
 
 # Видалення запису Jane
-book.delete("Jane")
+# book.delete("John")
+# print(book)
