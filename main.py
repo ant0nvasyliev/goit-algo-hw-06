@@ -45,7 +45,10 @@ class Record:
     def edit_phone(self, old_phone, new_phone):
         if self.find_phone(old_phone):
             self.remove_phone(old_phone)
-            self.add_phone(new_phone)
+            if len(new_phone) == 10 and new_phone.isdigit():
+                self.add_phone(new_phone)
+            else:
+                raise ValueError("Invalid phone number")
         else:
             raise ValueError(f"Phone number {old_phone} not found")
 
@@ -91,7 +94,7 @@ anton_record = Record('Anton')
 anton_record.add_phone('1111111111')
 book.add_record(anton_record)
 print(book)
-anton_record.edit_phone('11111111111', '2222222222')
+anton_record.edit_phone('1111111111', '2222222222')
 print(book)
 
 # Створення та додавання нового запису для Jane
