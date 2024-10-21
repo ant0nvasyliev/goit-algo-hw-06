@@ -43,15 +43,13 @@ class Record:
         print(f"Phone number {phone_number} not found.")
 
     def edit_phone(self, old_phone, new_phone):
-        if self.find_phone(old_phone):
-            self.remove_phone(old_phone)
-            if len(new_phone) == 10 and new_phone.isdigit():
-                self.add_phone(new_phone)
-            else:
-                raise ValueError("Invalid phone number")
-        else:
+        if not self.find_phone(old_phone):
             raise ValueError(f"Phone number {old_phone} not found")
-
+        if len(new_phone) == 10 and new_phone.isdigit():
+            self.remove_phone(old_phone)
+            self.add_phone(new_phone)
+        else:
+            raise ValueError("Invalid phone number")
 
     def find_phone(self, phone_number):
         for phone in self.phones:
